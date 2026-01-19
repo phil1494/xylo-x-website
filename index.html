@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XYLO-X Discord Server</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>X</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -13,7 +14,9 @@
             --gradient: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 40%, #16213e 60%, #0066ff 100%);
             --card-bg: rgba(10, 10, 10, 0.8);
             --accent-blue: #0099ff;
-            --text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            --discord-blurple: #5865F2;
+            --discord-green: #57F287;
+            --error-red: #ff3366;
         }
 
         * {
@@ -33,7 +36,6 @@
         /* Header */
         header {
             background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
@@ -71,31 +73,6 @@
             font-weight: 900;
             font-size: 1.8rem;
             color: var(--primary-black);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo:before {
-            content: "X";
-            position: absolute;
-            color: var(--primary-black);
-            font-weight: 900;
-            z-index: 2;
-        }
-
-        .logo:after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: conic-gradient(var(--primary-blue) 0%, var(--primary-white) 50%, var(--primary-blue) 100%);
-            border-radius: 50%;
-            animation: rotate 3s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         .logo-text {
@@ -105,7 +82,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: var(--text-shadow);
         }
 
         nav ul {
@@ -119,26 +95,10 @@
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
-            position: relative;
         }
 
         nav a:hover {
             color: var(--primary-blue);
-        }
-
-        nav a:after {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--primary-blue);
-            bottom: -5px;
-            left: 0;
-            transition: width 0.3s;
-        }
-
-        nav a:hover:after {
-            width: 100%;
         }
 
         /* Hero */
@@ -147,29 +107,6 @@
             background: var(--gradient);
             text-align: center;
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero:before {
-            content: "";
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(0, 102, 255, 0.2) 0%, transparent 70%);
-            top: 10%;
-            left: 10%;
-            border-radius: 50%;
-        }
-
-        .hero:after {
-            content: "";
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            bottom: 10%;
-            right: 10%;
-            border-radius: 50%;
         }
 
         .hero h1 {
@@ -179,19 +116,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: var(--text-shadow);
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            color: rgba(245, 245, 245, 0.9);
-            position: relative;
-            z-index: 2;
-            line-height: 1.6;
         }
 
         .cta-button {
@@ -204,8 +128,6 @@
             border-radius: 50px;
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0, 102, 255, 0.4);
-            position: relative;
-            z-index: 2;
         }
 
         .cta-button:hover {
@@ -213,7 +135,7 @@
             box-shadow: 0 8px 20px rgba(0, 102, 255, 0.6);
         }
 
-        /* Sections */
+        /* Cards */
         .section {
             padding: 100px 0;
         }
@@ -225,23 +147,10 @@
             position: relative;
         }
 
-        .section-title:after {
-            content: "";
-            position: absolute;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary-black), var(--primary-blue));
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        /* Cards */
         .cards-container {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 30px;
             flex-wrap: wrap;
             margin-top: 40px;
         }
@@ -250,44 +159,20 @@
             background: var(--card-bg);
             border-radius: 15px;
             padding: 40px 30px;
-            width: 320px;
+            width: 280px;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s;
             border: 1px solid rgba(0, 102, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary-blue), var(--accent-blue));
         }
 
         .card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 102, 255, 0.2);
         }
 
         .card-icon {
             font-size: 3rem;
             color: var(--primary-blue);
             margin-bottom: 20px;
-        }
-
-        .card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-
-        .card p {
-            color: rgba(245, 245, 245, 0.8);
-            margin-bottom: 25px;
-            line-height: 1.5;
         }
 
         .apply-btn {
@@ -300,7 +185,6 @@
             font-weight: 600;
             border: 2px solid var(--primary-blue);
             transition: all 0.3s;
-            cursor: pointer;
         }
 
         .apply-btn:hover {
@@ -330,7 +214,6 @@
             padding: 40px;
             position: relative;
             border: 1px solid rgba(0, 102, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .close-modal {
@@ -340,35 +223,13 @@
             font-size: 1.5rem;
             color: var(--primary-white);
             cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-modal:hover {
-            color: var(--primary-blue);
-        }
-
-        .modal h2 {
-            margin-bottom: 25px;
-            text-align: center;
-            font-size: 2rem;
-            background: linear-gradient(to right, var(--primary-white), var(--primary-blue));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
         }
 
         .form-group {
             margin-bottom: 25px;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
         .form-group input,
-        .form-group select,
         .form-group textarea {
             width: 100%;
             padding: 15px;
@@ -377,14 +238,6 @@
             border-radius: 8px;
             color: var(--primary-white);
             font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
         }
 
         .submit-btn {
@@ -395,13 +248,7 @@
             border: none;
             border-radius: 8px;
             font-weight: 700;
-            font-size: 1.1rem;
             cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
         }
 
         /* Dashboard */
@@ -441,46 +288,24 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .action-btn:hover {
             background: var(--primary-blue);
         }
 
-        .filter-btn {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--primary-white);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .filter-btn.active {
-            background: var(--primary-blue);
-            border-color: var(--primary-blue);
-        }
-
-        .filter-btn:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
+        /* Table */
         .table-container {
             overflow-x: auto;
             border-radius: 10px;
             background: var(--card-bg);
             border: 1px solid rgba(0, 102, 255, 0.2);
+            margin-top: 30px;
         }
 
         .applications-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 800px;
         }
 
         .applications-table th,
@@ -493,12 +318,6 @@
         .applications-table th {
             background: rgba(0, 102, 255, 0.2);
             font-weight: 700;
-            position: sticky;
-            top: 0;
-        }
-
-        .applications-table tr:hover {
-            background: rgba(0, 102, 255, 0.1);
         }
 
         .status {
@@ -507,8 +326,6 @@
             font-weight: 600;
             font-size: 0.9rem;
             display: inline-block;
-            min-width: 100px;
-            text-align: center;
         }
 
         .status.pending {
@@ -526,41 +343,13 @@
             color: #ff5555;
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
         .table-btn {
             padding: 8px 15px;
             border-radius: 5px;
             border: none;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        .approve-btn {
-            background: rgba(0, 255, 0, 0.2);
-            color: #00ff00;
-        }
-
-        .reject-btn {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff5555;
-        }
-
-        .details-btn {
-            background: rgba(0, 102, 255, 0.2);
-            color: var(--primary-blue);
-        }
-
-        .table-btn:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
+            margin: 2px;
         }
 
         /* Footer */
@@ -571,91 +360,19 @@
             text-align: center;
         }
 
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .social-links a {
-            color: var(--primary-white);
-            font-size: 1.5rem;
-            transition: color 0.3s;
-            text-decoration: none;
-        }
-
-        .social-links a:hover {
-            color: var(--primary-blue);
-        }
-
         .copyright {
             color: rgba(245, 245, 245, 0.7);
             font-size: 0.9rem;
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .section {
-                padding: 70px 0;
-            }
-            
-            .dashboard-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .dashboard-actions {
-                width: 100%;
-                flex-wrap: wrap;
-            }
-            
-            .action-btn {
-                flex: 1;
-                justify-content: center;
-                min-width: 140px;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-            }
-        }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
         <div class="container nav-container">
             <div class="logo-container">
-                <div class="logo"></div>
+                <div class="logo">X</div>
                 <div class="logo-text">XYLO-X</div>
             </div>
             <nav>
@@ -673,7 +390,9 @@
     <section id="home" class="hero">
         <div class="container">
             <h1>Willkommen bei XYLO-X</h1>
-            <p>Trete unserer Discord-Community bei und bewirb dich für unser Team.</p>
+            <p style="max-width: 700px; margin: 0 auto 40px; font-size: 1.2rem;">
+                Trete unserer Discord-Community bei und bewirb dich für unser Team.
+            </p>
             <a href="#applications" class="cta-button">Jetzt bewerben</a>
         </div>
     </section>
@@ -687,19 +406,19 @@
                     <div class="card-icon"><i class="fas fa-user-shield"></i></div>
                     <h3>Staff Team</h3>
                     <p>Werde Teil unseres Staff-Teams.</p>
-                    <button class="apply-btn" data-role="Staff">Bewerben</button>
+                    <a href="#" class="apply-btn" data-role="staff">Bewerben</a>
                 </div>
                 <div class="card">
                     <div class="card-icon"><i class="fas fa-code"></i></div>
                     <h3>Developer</h3>
-                    <p>Arbeite an Bots und Websites.</p>
-                    <button class="apply-btn" data-role="Developer">Bewerben</button>
+                    <p>Programmiere Bots und Websites.</p>
+                    <a href="#" class="apply-btn" data-role="developer">Bewerben</a>
                 </div>
                 <div class="card">
                     <div class="card-icon"><i class="fas fa-paint-brush"></i></div>
                     <h3>Designer</h3>
                     <p>Gestalte Grafiken und Logos.</p>
-                    <button class="apply-btn" data-role="Designer">Bewerben</button>
+                    <a href="#" class="apply-btn" data-role="designer">Bewerben</a>
                 </div>
             </div>
         </div>
@@ -711,7 +430,7 @@
             <h2 class="section-title">Über XYLO-X</h2>
             <div class="card" style="max-width: 800px; margin: 0 auto;">
                 <p style="text-align: center; font-size: 1.1rem;">
-                    XYLO-X ist eine Discord-Community mit dem Ziel, eine positive Umgebung für alle zu schaffen.
+                    XYLO-X ist eine aufstrebende Discord-Community.
                 </p>
                 <div style="text-align: center; margin-top: 30px;">
                     <a href="https://discord.gg/TRGVCsW7vU" target="_blank" class="cta-button" style="padding: 12px 30px;">
@@ -722,7 +441,7 @@
         </div>
     </section>
 
-    <!-- Modals -->
+    <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -730,13 +449,14 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label for="adminCode">Admin Code</label>
-                    <input type="password" id="adminCode" placeholder="Admin Code eingeben" required>
+                    <input type="password" id="adminCode" placeholder="Gib deinen Admin-Code ein" required>
                 </div>
                 <button type="submit" class="submit-btn">Login</button>
             </form>
         </div>
     </div>
 
+    <!-- Application Modal -->
     <div id="applicationModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -752,7 +472,7 @@
                 </div>
                 <div class="form-group">
                     <label for="applicantDiscord">Discord Name</label>
-                    <input type="text" id="applicantDiscord" placeholder="Dein Discord Name" required>
+                    <input type="text" id="applicantDiscord" placeholder="Discord Name#0000" required>
                 </div>
                 <div class="form-group">
                     <label for="applicationText">Warum möchtest du dich bewerben?</label>
@@ -779,17 +499,22 @@
                 </div>
             </div>
 
-            <div style="text-align: center; margin-bottom: 40px;">
-                <button class="filter-btn active" data-status="all">Alle</button>
-                <button class="filter-btn" data-status="pending">Ausstehend</button>
-                <button class="filter-btn" data-status="approved">Angenommen</button>
-                <button class="filter-btn" data-status="rejected">Abgelehnt</button>
+            <h3>Bewerbungen verwalten (<span id="applicationsCount">0</span>)</h3>
+            
+            <!-- Filter -->
+            <div style="display: flex; gap: 10px; margin: 20px 0;">
+                <button class="action-btn" data-status="all">Alle</button>
+                <button class="action-btn" data-status="pending">Ausstehend</button>
+                <button class="action-btn" data-status="approved">Angenommen</button>
+                <button class="action-btn" data-status="rejected">Abgelehnt</button>
             </div>
 
+            <!-- Table -->
             <div class="table-container">
                 <table class="applications-table">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Name</th>
                             <th>Position</th>
                             <th>Discord</th>
@@ -799,13 +524,14 @@
                         </tr>
                     </thead>
                     <tbody id="applicationsTableBody">
-                        <tr>
-                            <td colspan="6" style="text-align: center; padding: 40px;">
-                                Noch keine Bewerbungen vorhanden.
-                            </td>
-                        </tr>
+                        <!-- Wird mit JavaScript gefüllt -->
                     </tbody>
                 </table>
+            </div>
+
+            <div id="noApplications" style="text-align: center; padding: 50px; display: none;">
+                <i class="fas fa-inbox" style="font-size: 3rem; color: var(--primary-blue); margin-bottom: 20px;"></i>
+                <h3>Keine Bewerbungen vorhanden</h3>
             </div>
         </div>
     </section>
@@ -813,208 +539,250 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <div class="logo" style="width: 40px; height: 40px; font-size: 1.4rem;"></div>
-                    <div class="logo-text">XYLO-X</div>
-                </div>
-                <div class="social-links">
-                    <a href="https://discord.gg/TRGVCsW7vU" target="_blank" title="Discord">
-                        <i class="fab fa-discord"></i>
-                    </a>
-                    <a href="https://github.com" target="_blank" title="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </div>
-            </div>
             <div class="copyright">
-                &copy; 2023 XYLO-X Discord Server
+                &copy; 2023 XYLO-X Discord Server. Alle Rechte vorbehalten.
             </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('✅ XYLO-X Website geladen');
-        
-        // 1. Admin Login Button
-        document.getElementById('adminLogin').addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('🔐 Admin Login geklickt');
-            document.getElementById('loginModal').style.display = 'flex';
-        });
-        
-        // 2. Bewerbungs-Buttons
-        document.querySelectorAll('.apply-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const role = this.getAttribute('data-role');
-                console.log('📝 Bewerbung für:', role);
-                document.getElementById('applicationRole').value = role;
-                document.getElementById('applicationModal').style.display = 'flex';
-            });
-        });
-        
-        // 3. Modal schließen
-        document.querySelectorAll('.close-modal').forEach(button => {
-            button.addEventListener('click', function() {
-                document.getElementById('loginModal').style.display = 'none';
-                document.getElementById('applicationModal').style.display = 'none';
-            });
-        });
-        
-        // 4. Login Formular (Code: geheim123)
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const code = document.getElementById('adminCode').value.trim();
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ Seite geladen');
             
-            console.log('🔑 Login Code:', code);
+            // Elemente
+            const loginModal = document.getElementById('loginModal');
+            const adminLoginBtn = document.getElementById('adminLogin');
+            const loginForm = document.getElementById('loginForm');
+            const dashboard = document.getElementById('dashboard');
+            const logoutBtn = document.getElementById('logoutBtn');
             
-            if (code === 'geheim123') {
-                alert('✅ Login erfolgreich!');
-                document.getElementById('dashboard').style.display = 'block';
-                document.getElementById('loginModal').style.display = 'none';
-                
-                // Andere Sections verstecken
-                document.querySelectorAll('section:not(#dashboard)').forEach(section => {
-                    section.style.display = 'none';
+            // Modals schließen
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    loginModal.style.display = 'none';
+                    document.getElementById('applicationModal').style.display = 'none';
                 });
-                document.querySelector('footer').style.display = 'none';
-                
-                console.log('🏠 Dashboard geöffnet');
-            } else {
-                alert('❌ Falscher Code!');
-                document.getElementById('adminCode').value = '';
-                document.getElementById('adminCode').focus();
-            }
-        });
-        
-        // 5. Bewerbungsformular
-        document.getElementById('applicationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('applicantName').value;
-            const email = document.getElementById('applicantEmail').value;
-            const discord = document.getElementById('applicantDiscord').value;
-            const role = document.getElementById('applicationRole').value;
-            const text = document.getElementById('applicationText').value;
-            
-            console.log('📄 Neue Bewerbung:', { name, role });
-            
-            // In localStorage speichern
-            let applications = JSON.parse(localStorage.getItem('xylo-applications') || '[]');
-            applications.push({
-                id: Date.now(),
-                name: name,
-                email: email,
-                discord: discord,
-                role: role,
-                text: text,
-                date: new Date().toLocaleDateString('de-DE'),
-                status: 'pending'
             });
-            localStorage.setItem('xylo-applications', JSON.stringify(applications));
             
-            alert(`✅ Danke ${name}! Deine Bewerbung als ${role} wurde gespeichert.`);
-            document.getElementById('applicationModal').style.display = 'none';
-            document.getElementById('applicationForm').reset();
-            
-            // Dashboard aktualisieren falls offen
-            if (document.getElementById('dashboard').style.display === 'block') {
-                loadApplications();
-            }
-        });
-        
-        // 6. Logout Button
-        document.getElementById('logoutBtn').addEventListener('click', function() {
-            console.log('🚪 Logout');
-            alert('👋 Ausgeloggt.');
-            
-            document.getElementById('dashboard').style.display = 'none';
-            document.querySelectorAll('section').forEach(section => {
-                section.style.display = 'block';
-            });
-            document.querySelector('footer').style.display = 'block';
-        });
-        
-        // 7. Refresh Button
-        document.getElementById('refreshBtn').addEventListener('click', function() {
-            console.log('🔄 Refresh');
-            loadApplications();
-            alert('✅ Dashboard aktualisiert!');
-        });
-        
-        // 8. Filter Buttons
-        document.querySelectorAll('.filter-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                loadApplications(this.getAttribute('data-status'));
-            });
-        });
-        
-        // Funktion zum Laden der Bewerbungen
-        function loadApplications(filter = 'all') {
-            const applications = JSON.parse(localStorage.getItem('xylo-applications') || '[]');
-            const tbody = document.getElementById('applicationsTableBody');
-            
-            if (applications.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px;">Noch keine Bewerbungen vorhanden.</td></tr>';
-                return;
+            // Login Button
+            if (adminLoginBtn) {
+                adminLoginBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loginModal.style.display = 'flex';
+                });
             }
             
-            let filtered = applications;
-            if (filter !== 'all') {
-                filtered = applications.filter(app => app.status === filter);
+            // Login Form
+            if (loginForm) {
+                loginForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const adminCode = document.getElementById('adminCode').value.trim();
+                    
+                    try {
+                        const response = await fetch('http://localhost:3000/api/login', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ adminCode })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            alert(`✅ Login erfolgreich! Willkommen ${data.admin.name}`);
+                            loginModal.style.display = 'none';
+                            
+                            // Alle Sections ausblenden außer Dashboard
+                            document.querySelectorAll('section').forEach(section => {
+                                if (section.id !== 'dashboard') {
+                                    section.style.display = 'none';
+                                }
+                            });
+                            
+                            document.querySelector('footer').style.display = 'none';
+                            dashboard.style.display = 'block';
+                            
+                            // Bewerbungen laden
+                            loadApplications('all');
+                            
+                        } else {
+                            alert('❌ Falscher Admin-Code!');
+                        }
+                    } catch (error) {
+                        console.error('Login Fehler:', error);
+                        alert('❌ Server nicht erreichbar. Starte den Server mit "npm start"');
+                    }
+                });
             }
             
-            tbody.innerHTML = '';
-            filtered.forEach(app => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${app.name}</td>
-                    <td>${app.role}</td>
-                    <td>${app.discord}</td>
-                    <td>${app.date}</td>
-                    <td><span class="status ${app.status}">${app.status === 'pending' ? 'Ausstehend' : app.status === 'approved' ? 'Angenommen' : 'Abgelehnt'}</span></td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="table-btn approve-btn" onclick="changeStatus(${app.id}, 'approved')">Annehmen</button>
-                            <button class="table-btn reject-btn" onclick="changeStatus(${app.id}, 'rejected')">Ablehnen</button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
+            // Logout
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    dashboard.style.display = 'none';
+                    document.querySelectorAll('section').forEach(section => {
+                        section.style.display = 'block';
+                    });
+                    document.querySelector('footer').style.display = 'block';
+                    alert('🚪 Ausgeloggt.');
+                });
+            }
+            
+            // Bewerbungs-Buttons
+            document.querySelectorAll('.apply-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const role = this.getAttribute('data-role');
+                    const roleNames = {
+                        'staff': 'Staff Team',
+                        'developer': 'Developer',
+                        'designer': 'Designer'
+                    };
+                    
+                    document.getElementById('applicationTitle').textContent = `Bewerbung als ${roleNames[role] || role}`;
+                    document.getElementById('applicationRole').value = role;
+                    document.getElementById('applicationModal').style.display = 'flex';
+                });
             });
-        }
-        
-        // Status ändern Funktion (global)
-        window.changeStatus = function(id, status) {
-            let applications = JSON.parse(localStorage.getItem('xylo-applications') || '[]');
-            applications = applications.map(app => {
-                if (app.id === id) {
-                    app.status = status;
+            
+            // Bewerbungs-Formular
+            const applicationForm = document.getElementById('applicationForm');
+            if (applicationForm) {
+                applicationForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('applicantName').value;
+                    const email = document.getElementById('applicantEmail').value;
+                    const discord = document.getElementById('applicantDiscord').value;
+                    const role = document.getElementById('applicationRole').value;
+                    const message = document.getElementById('applicationText').value;
+                    
+                    try {
+                        const response = await fetch('http://localhost:3000/api/applications', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ name, email, discord, role, message })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            alert(`✅ Danke, ${name}! Deine Bewerbung wurde gespeichert.\n\nBewerbungs-ID: ${data.application.appId}`);
+                            document.getElementById('applicationModal').style.display = 'none';
+                            applicationForm.reset();
+                            
+                            // Wenn Dashboard sichtbar, aktualisieren
+                            if (dashboard.style.display === 'block') {
+                                loadApplications('all');
+                            }
+                        }
+                    } catch (error) {
+                        alert('❌ Fehler beim Senden der Bewerbung');
+                    }
+                });
+            }
+            
+            // Bewerbungen laden
+            async function loadApplications(status = 'all') {
+                try {
+                    const response = await fetch('http://localhost:3000/api/applications');
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        let filteredApps = data.applications;
+                        
+                        if (status !== 'all') {
+                            filteredApps = data.applications.filter(app => app.status === status);
+                        }
+                        
+                        updateApplicationsTable(filteredApps);
+                        document.getElementById('applicationsCount').textContent = filteredApps.length;
+                        
+                        // Keine Bewerbungen Nachricht
+                        const noApps = document.getElementById('noApplications');
+                        if (filteredApps.length === 0) {
+                            noApps.style.display = 'block';
+                        } else {
+                            noApps.style.display = 'none';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Fehler beim Laden:', error);
                 }
-                return app;
+            }
+            
+            // Tabelle aktualisieren
+            function updateApplicationsTable(applications) {
+                const tbody = document.getElementById('applicationsTableBody');
+                tbody.innerHTML = '';
+                
+                applications.forEach(app => {
+                    const row = document.createElement('tr');
+                    
+                    // Status Farbe
+                    const statusClass = app.status || 'pending';
+                    const statusText = {
+                        'pending': 'Ausstehend',
+                        'approved': 'Angenommen',
+                        'rejected': 'Abgelehnt'
+                    }[statusClass] || statusClass;
+                    
+                    row.innerHTML = `
+                        <td>${app.appId || app.id}</td>
+                        <td>${app.name}</td>
+                        <td>${app.role}</td>
+                        <td>${app.discord}</td>
+                        <td>${app.date || 'Unbekannt'}</td>
+                        <td><span class="status ${statusClass}">${statusText}</span></td>
+                        <td>
+                            <button class="table-btn" style="background: rgba(0,255,0,0.2); color: #00ff00;" onclick="updateStatus(${app.id}, 'approved')">Annehmen</button>
+                            <button class="table-btn" style="background: rgba(255,0,0,0.2); color: #ff5555;" onclick="updateStatus(${app.id}, 'rejected')">Ablehnen</button>
+                        </td>
+                    `;
+                    
+                    tbody.appendChild(row);
+                });
+            }
+            
+            // Status aktualisieren (global für Buttons)
+            window.updateStatus = async function(appId, newStatus) {
+                try {
+                    const response = await fetch(`http://localhost:3000/api/applications/${appId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ status: newStatus })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        alert(`✅ Status aktualisiert zu: ${newStatus}`);
+                        loadApplications('all');
+                    }
+                } catch (error) {
+                    alert('❌ Fehler beim Aktualisieren');
+                }
+            };
+            
+            // Filter Buttons
+            document.querySelectorAll('.action-btn[data-status]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const status = this.getAttribute('data-status');
+                    loadApplications(status);
+                });
             });
-            localStorage.setItem('xylo-applications', JSON.stringify(applications));
-            loadApplications(document.querySelector('.filter-btn.active').getAttribute('data-status'));
-            alert(`✅ Status auf ${status === 'approved' ? 'Angenommen' : 'Abgelehnt'} geändert!`);
-        };
-        
-        console.log('✅ Alle Funktionen aktiv');
-    });
-    
-    // Modal schließen bei Klick außerhalb
-    window.addEventListener('click', function(e) {
-        if (e.target === document.getElementById('loginModal')) {
-            document.getElementById('loginModal').style.display = 'none';
-        }
-        if (e.target === document.getElementById('applicationModal')) {
-            document.getElementById('applicationModal').style.display = 'none';
-        }
-    });
+            
+            // Refresh Button
+            const refreshBtn = document.getElementById('refreshBtn');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    loadApplications('all');
+                    alert('✅ Daten aktualisiert!');
+                });
+            }
+            
+            console.log('✅ JavaScript initialisiert');
+        });
     </script>
 </body>
 </html>
